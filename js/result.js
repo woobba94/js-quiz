@@ -9,9 +9,7 @@ const chartBox = document.querySelector('.chart');
 showBtn.addEventListener('click', () => {
   // 버튼 삭제 > 결과 내용 추가
   showBtn.remove();
-  resultBox.innerHTML = `총 ${
-    right + wrong
-  }문제 중 ${right}문제를 맞추었습니다. 최종 점수는 ${myScore}점 입니다.`;
+  resultBox.innerHTML = `총 ${right + wrong}문제 중 ${right}문제를 맞추었습니다. 최종 점수는 ${myScore}점 입니다.`;
 });
 
 // 틀린문제복습 관련 오브젝트와 이벤트리스너
@@ -208,11 +206,6 @@ function rank() {
   // 1등점수까지의 배열
   let scores = Array.from({ length: MAX_SCORE }, () => 0);
 
-  // 랭킹 콘솔출력
-  // for (let v of rankScore) {
-  //   console.log(v);
-  // }
-
   // 점수별 분포 더하기
   for (let r of rankScore) {
     scores[r.score]++;
@@ -234,24 +227,19 @@ function loadChart(dataSet, MAX_SCORE) {
         borderColor: 'rgb(255, 255, 255)',
         data: dataSet,
         backgroundColor: 'rgb(255, 99, 132)',
-        // fill: true,
       },
     ],
   };
 
-  //animation
   const totalDuration = 2500;
   const delayBetweenPoints = totalDuration / data.labels.length;
-  const previousY = (ctx) =>
-    ctx.index === 0
-      ? ctx.chart.scales.y.getPixelForValue(100)
-      : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y;
+  const previousY = (ctx) => (ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y);
   const animation = {
     x: {
       type: 'number',
       easing: 'linear',
       duration: delayBetweenPoints,
-      from: NaN, // the point is initially skipped
+      from: NaN,
       delay(ctx) {
         if (ctx.type !== 'data' || ctx.xStarted) {
           return 0;
@@ -294,7 +282,7 @@ function loadChart(dataSet, MAX_SCORE) {
           },
           ticks: {
             font: {
-              family: 'DungGeunMo', // Your font family
+              family: 'DungGeunMo',
               size: 18,
             },
           },
@@ -303,13 +291,9 @@ function loadChart(dataSet, MAX_SCORE) {
           beginAtZero: true,
           ticks: {
             font: {
-              family: 'DungGeunMo', // Your font family
+              family: 'DungGeunMo',
               size: 20,
             },
-            // Include a dollar sign in the ticks
-            // callback: function (value, index, values) {
-            //   return value + '명';
-            // },
           },
         },
       },

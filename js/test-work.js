@@ -169,7 +169,7 @@ function showRightAnswer() {
   submitBtn.setAttribute('disabled', true);
   inpAnswer.setAttribute('readonly', true);
   rightAnswerBox.style.height = '70px';
-  // 정답박스 준비 (테스트용)
+  // 정답박스 준비
   rightAnswerOutput.innerHTML = `정답 : ${getAnswer(questions[questions.length - 1])}`;
 }
 
@@ -179,7 +179,7 @@ function showQuestion() {
     .then((response) => response.json())
     .then((data) => {
       // 문제 데이터 저장 및 출력
-      const [ question, subject ] = getQuestion(data);
+      const [question, subject] = getQuestion(data);
       questionBox.innerHTML = question;
       // 결과에 사용 할 배열에 문제저장
       questions.push(question);
